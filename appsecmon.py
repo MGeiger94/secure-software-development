@@ -4,8 +4,14 @@
 #                  April 13 2022 - fixed syntax errors
 #
 # Remarks:
-# https://docs.python.org/3/library/syslog.html
-# https://stackoverflow.com/questions/12523044/how-can-i-tail-a-log-file-in-python
+# Python Software Foundation (N.D. A)
+# Stack Overflow (N.D.)
+
+### References ###
+# Python Software Foundation (N.D. A) Unix syslog libary routlines. Available from: https://docs.python.org/3/library/syslog.html [Accesses 18 April 2022].
+# Python Software Foundation (N.D. B) Classes. Available from: https://docs.python.org/3.10/tutorial/classes.html#generators [Accessed 18 April 2022].
+# Stack Overflow (N.D.) How can I tail a log file in Python? Available from: https://stackoverflow.com/questions/12523044/how-can-i-tail-a-log-file-in-python [Accesses 18 April 2022].
+
 
 import time, os, datetime, re, json
 # external lib for transporting logs
