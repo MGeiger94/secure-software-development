@@ -12,6 +12,11 @@
 # viewing, sharing, uploading files, etc. to appropriate URLs.
 # End-user facing requests, including input forms will mostly done within relevant html templates.
 
+### References ###
+# W3Schools (N.D.) Python Tuples. Available from: https://www.w3schools.com/python/python_tuples.asp [Accessed 14 April 2022].
+# OWASP (N.D.) Path Traversal. Available from: https://owasp.org/www-community/attacks/Path_Traversal [Accessed 15 April 2022].
+# OWASP Cheat Sheet Series Team (N.D.) Insecure Direct Object Reference Prevention Cheat Sheet. Available from: https://cheatsheetseries.owasp.org/cheatsheets/Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet.html [Accessed 15 April 2022].
+
 import re
 from flask import Blueprint, render_template, redirect, url_for, request, flash, send_file, current_app
 from markupsafe import escape
@@ -115,7 +120,7 @@ def presentview2():
 		dbcondata = getconnectiondata()
 		resultslist = getauthsfiles(dbcondata, authsfilesql)
 		if resultslist is not None and len(resultslist) > 0:
-			# let's convert the tuples into a dictionary - what are the tuples? https://www.w3schools.com/python/python_tuples.asp
+			# Convert the tuples into a dictionary (W3Schools, N.D.).
 			authsdict = newresultsdict(resultslist)
 		else:
 			authsdict = dict()
@@ -157,8 +162,7 @@ def processupload():
 		errmsg = "No file selection detected"
 		flash(errmsg)
 		return redirect(url_for('app.presentupload'))
-	# Leading file paths can be removed with Werkzeug - OWASP explanation below:
-	# https://owasp.org/www-community/attacks/Path_Traversal
+	# Leading file paths can be removed with Werkzeug (OWASP, N.D.)
 	newfilesecname = secure_filename(newfile.filename)
 	flupkeytag = request.form.get('fileup-keyword-tag')
 	# Trim keywords while storing files - 254 char is a hard limit
@@ -287,8 +291,7 @@ def getdownload():
 				if selaction == "deletefile":
 					return redirect(url_for('app.delete', ukn=fileuuid))
 		else:
-			# re-run the check above one more time to detect IDOR attacks
-			# https://cheatsheetseries.owasp.org/cheatsheets/Insecure_Direct_Object_Reference_Prevention_Cheat_Sheet.html
+			# re-run the check above one more time to detect IDOR attacks (OWASP Cheat Sheet Series Team, N.D.)
 			print("Confirm if UID {} , in these groups {}, authorised for this {}".format(uid, asglist, fileuuid))
 			thissql = getfiledatasql(uid, asglist, fileuuid)
 			dbcondata = getconnectiondata()
